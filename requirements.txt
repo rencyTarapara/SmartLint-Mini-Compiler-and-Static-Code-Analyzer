@@ -1,0 +1,4 @@
+ply
+streamlit
+pandas
+pytest
