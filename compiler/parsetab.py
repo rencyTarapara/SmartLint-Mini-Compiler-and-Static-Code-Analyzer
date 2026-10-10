@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDErightUMINUSDIVIDE EQ EQUALS FALSE GE GT LE LPAREN LT MINUS NAME NE NEWLINE NUMBER PLUS PRINT RPAREN STRING TIMES TRUEprogram : statementsstatements : statements statementstatements : statementstatement : NAME EQUALS expression NEWLINE\n                 | NAME EQUALS expressionstatement : PRINT LPAREN expression RPAREN NEWLINE\n                 | PRINT LPAREN expression RPARENexpression : expression PLUS expression\n                  | expression MINUS expression\n                  | expression TIMES expression\n                  | expression DIVIDE expressionexpression : MINUS expression %prec UMINUSexpression : NUMBERexpression : STRINGexpression : NAMEexpression : TRUE\n                  | FALSEexpression : LPAREN expression RPAREN'
+_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDErightUMINUSDIVIDE EQ EQUALS FALSE GE GT LE LPAREN LT MINUS NAME NE NEWLINE NUMBER PLUS PRINT RPAREN STRING TIMES TRUEprogram : lineslines : emptylines : lines NEWLINElines : lines statement NEWLINEempty :statement : NAME EQUALS expressionstatement : PRINT LPAREN expression RPARENexpression : expression PLUS expression\n                  | expression MINUS expression\n                  | expression TIMES expression\n                  | expression DIVIDE expressionexpression : MINUS expression %prec UMINUSexpression : NUMBERexpression : STRINGexpression : NAMEexpression : TRUE\n                  | FALSEexpression : LPAREN expression RPAREN'
     
-_lr_action_items = {'NAME':([0,2,3,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23,25,26,27,28,29,30,31,],[4,4,-3,-2,9,9,-15,-5,9,-13,-14,-16,-17,9,-4,9,9,9,9,-12,-7,-8,-9,-10,-11,-18,-6,]),'PRINT':([0,2,3,6,9,10,12,13,14,15,18,23,25,26,27,28,29,30,31,],[5,5,-3,-2,-15,-5,-13,-14,-16,-17,-4,-12,-7,-8,-9,-10,-11,-18,-6,]),'$end':([1,2,3,6,9,10,12,13,14,15,18,23,25,26,27,28,29,30,31,],[0,-1,-3,-2,-15,-5,-13,-14,-16,-17,-4,-12,-7,-8,-9,-10,-11,-18,-6,]),'EQUALS':([4,],[7,]),'LPAREN':([5,7,8,11,16,19,20,21,22,],[8,16,16,16,16,16,16,16,16,]),'MINUS':([7,8,9,10,11,12,13,14,15,16,17,19,20,21,22,23,24,26,27,28,29,30,],[11,11,-15,20,11,-13,-14,-16,-17,11,20,11,11,11,11,-12,20,-8,-9,-10,-11,-18,]),'NUMBER':([7,8,11,16,19,20,21,22,],[12,12,12,12,12,12,12,12,]),'STRING':([7,8,11,16,19,20,21,22,],[13,13,13,13,13,13,13,13,]),'TRUE':([7,8,11,16,19,20,21,22,],[14,14,14,14,14,14,14,14,]),'FALSE':([7,8,11,16,19,20,21,22,],[15,15,15,15,15,15,15,15,]),'NEWLINE':([9,10,12,13,14,15,23,25,26,27,28,29,30,],[-15,18,-13,-14,-16,-17,-12,31,-8,-9,-10,-11,-18,]),'PLUS':([9,10,12,13,14,15,17,23,24,26,27,28,29,30,],[-15,19,-13,-14,-16,-17,19,-12,19,-8,-9,-10,-11,-18,]),'TIMES':([9,10,12,13,14,15,17,23,24,26,27,28,29,30,],[-15,21,-13,-14,-16,-17,21,-12,21,21,21,-10,-11,-18,]),'DIVIDE':([9,10,12,13,14,15,17,23,24,26,27,28,29,30,],[-15,22,-13,-14,-16,-17,22,-12,22,22,22,-10,-11,-18,]),'RPAREN':([9,12,13,14,15,17,23,24,26,27,28,29,30,],[-15,-13,-14,-16,-17,25,-12,30,-8,-9,-10,-11,-18,]),}
+_lr_action_items = {'NEWLINE':([0,2,3,4,5,8,11,12,14,15,16,17,24,26,27,28,29,30,31,],[-5,4,-2,-3,8,-4,-15,-6,-13,-14,-16,-17,-12,-7,-8,-9,-10,-11,-18,]),'NAME':([0,2,3,4,8,9,10,13,18,20,21,22,23,],[-5,6,-2,-3,-4,11,11,11,11,11,11,11,11,]),'PRINT':([0,2,3,4,8,],[-5,7,-2,-3,-4,]),'$end':([0,1,2,3,4,8,],[-5,0,-1,-2,-3,-4,]),'EQUALS':([6,],[9,]),'LPAREN':([7,9,10,13,18,20,21,22,23,],[10,18,18,18,18,18,18,18,18,]),'MINUS':([9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,27,28,29,30,31,],[13,13,-15,21,13,-13,-14,-16,-17,13,21,13,13,13,13,-12,21,-8,-9,-10,-11,-18,]),'NUMBER':([9,10,13,18,20,21,22,23,],[14,14,14,14,14,14,14,14,]),'STRING':([9,10,13,18,20,21,22,23,],[15,15,15,15,15,15,15,15,]),'TRUE':([9,10,13,18,20,21,22,23,],[16,16,16,16,16,16,16,16,]),'FALSE':([9,10,13,18,20,21,22,23,],[17,17,17,17,17,17,17,17,]),'PLUS':([11,12,14,15,16,17,19,24,25,27,28,29,30,31,],[-15,20,-13,-14,-16,-17,20,-12,20,-8,-9,-10,-11,-18,]),'TIMES':([11,12,14,15,16,17,19,24,25,27,28,29,30,31,],[-15,22,-13,-14,-16,-17,22,-12,22,22,22,-10,-11,-18,]),'DIVIDE':([11,12,14,15,16,17,19,24,25,27,28,29,30,31,],[-15,23,-13,-14,-16,-17,23,-12,23,23,23,-10,-11,-18,]),'RPAREN':([11,14,15,16,17,19,24,25,27,28,29,30,31,],[-15,-13,-14,-16,-17,26,-12,31,-8,-9,-10,-11,-18,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'statements':([0,],[2,]),'statement':([0,2,],[3,6,]),'expression':([7,8,11,16,19,20,21,22,],[10,17,23,24,26,27,28,29,]),}
+_lr_goto_items = {'program':([0,],[1,]),'lines':([0,],[2,]),'empty':([0,],[3,]),'statement':([2,],[5,]),'expression':([9,10,13,18,20,21,22,23,],[12,19,24,25,27,28,29,30,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,22 +27,22 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> statements','program',1,'p_program','parser.py',18),
-  ('statements -> statements statement','statements',2,'p_statements_multiple','parser.py',23),
-  ('statements -> statement','statements',1,'p_statements_single','parser.py',28),
-  ('statement -> NAME EQUALS expression NEWLINE','statement',4,'p_statement_assignment','parser.py',33),
-  ('statement -> NAME EQUALS expression','statement',3,'p_statement_assignment','parser.py',34),
-  ('statement -> PRINT LPAREN expression RPAREN NEWLINE','statement',5,'p_statement_print','parser.py',44),
-  ('statement -> PRINT LPAREN expression RPAREN','statement',4,'p_statement_print','parser.py',45),
-  ('expression -> expression PLUS expression','expression',3,'p_expression_binary','parser.py',54),
-  ('expression -> expression MINUS expression','expression',3,'p_expression_binary','parser.py',55),
-  ('expression -> expression TIMES expression','expression',3,'p_expression_binary','parser.py',56),
-  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binary','parser.py',57),
-  ('expression -> MINUS expression','expression',2,'p_expression_unary_minus','parser.py',68),
-  ('expression -> NUMBER','expression',1,'p_expression_number','parser.py',78),
-  ('expression -> STRING','expression',1,'p_expression_string','parser.py',87),
-  ('expression -> NAME','expression',1,'p_expression_name','parser.py',96),
-  ('expression -> TRUE','expression',1,'p_expression_boolean','parser.py',105),
-  ('expression -> FALSE','expression',1,'p_expression_boolean','parser.py',106),
-  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression_group','parser.py',115),
+  ('program -> lines','program',1,'p_program','parser.py',24),
+  ('lines -> empty','lines',1,'p_lines_empty','parser.py',29),
+  ('lines -> lines NEWLINE','lines',2,'p_lines_blank','parser.py',34),
+  ('lines -> lines statement NEWLINE','lines',3,'p_lines_statement','parser.py',39),
+  ('empty -> <empty>','empty',0,'p_empty','parser.py',44),
+  ('statement -> NAME EQUALS expression','statement',3,'p_statement_assignment','parser.py',49),
+  ('statement -> PRINT LPAREN expression RPAREN','statement',4,'p_statement_print','parser.py',59),
+  ('expression -> expression PLUS expression','expression',3,'p_expression_binary','parser.py',72),
+  ('expression -> expression MINUS expression','expression',3,'p_expression_binary','parser.py',73),
+  ('expression -> expression TIMES expression','expression',3,'p_expression_binary','parser.py',74),
+  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binary','parser.py',75),
+  ('expression -> MINUS expression','expression',2,'p_expression_unary_minus','parser.py',86),
+  ('expression -> NUMBER','expression',1,'p_expression_number','parser.py',96),
+  ('expression -> STRING','expression',1,'p_expression_string','parser.py',105),
+  ('expression -> NAME','expression',1,'p_expression_name','parser.py',114),
+  ('expression -> TRUE','expression',1,'p_expression_boolean','parser.py',123),
+  ('expression -> FALSE','expression',1,'p_expression_boolean','parser.py',124),
+  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression_group','parser.py',133),
 ]

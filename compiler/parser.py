@@ -3,10 +3,12 @@ import ply.yacc as yacc
 
 from compiler.lexer import tokens, build_lexer
 
+
+# Store syntax errors for the current parse
 syntax_errors = []
 
 
-# Operator precedence
+# Operator precedence: multiplication/division before addition/subtraction
 precedence = (
     ("left", "PLUS", "MINUS"),
     ("left", "TIMES", "DIVIDE"),
@@ -14,24 +16,37 @@ precedence = (
 )
 
 
+# -------------------------
+# Program and statement rules
+# -------------------------
+
 def p_program(p):
-    """program : statements"""
+    """program : lines"""
     p[0] = p[1]
 
 
-def p_statements_multiple(p):
-    """statements : statements statement"""
+def p_lines_empty(p):
+    """lines : empty"""
+    p[0] = []
+
+
+def p_lines_blank(p):
+    """lines : lines NEWLINE"""
+    p[0] = p[1]
+
+
+def p_lines_statement(p):
+    """lines : lines statement NEWLINE"""
     p[0] = p[1] + [p[2]]
 
 
-def p_statements_single(p):
-    """statements : statement"""
-    p[0] = [p[1]]
+def p_empty(p):
+    """empty :"""
+    p[0] = None
 
 
 def p_statement_assignment(p):
-    """statement : NAME EQUALS expression NEWLINE
-                 | NAME EQUALS expression"""
+    """statement : NAME EQUALS expression"""
     p[0] = {
         "type": "assign",
         "name": p[1],
@@ -41,14 +56,17 @@ def p_statement_assignment(p):
 
 
 def p_statement_print(p):
-    """statement : PRINT LPAREN expression RPAREN NEWLINE
-                 | PRINT LPAREN expression RPAREN"""
+    """statement : PRINT LPAREN expression RPAREN"""
     p[0] = {
         "type": "print",
         "value": p[3],
         "line": p.lineno(1),
     }
 
+
+# -------------------------
+# Expression rules
+# -------------------------
 
 def p_expression_binary(p):
     """expression : expression PLUS expression
@@ -116,6 +134,10 @@ def p_expression_group(p):
     p[0] = p[2]
 
 
+# -------------------------
+# Syntax error handling
+# -------------------------
+
 def p_error(p):
     if p:
         syntax_errors.append({
@@ -131,11 +153,20 @@ def p_error(p):
         })
 
 
+# Build the parser once
 parser = yacc.yacc()
 
 
 def parse_source(source):
     syntax_errors.clear()
+
+    # Handle an empty program and ensure the last statement
+    # is terminated by a newline.
+    if not source:
+        return [], []
+
+    if not source.endswith("\n"):
+        source += "\n"
 
     lexer = build_lexer()
     lexer.lineno = 1
