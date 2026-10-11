@@ -316,6 +316,7 @@ x = True + 1      # ERROR: Operator '+' cannot be applied to bool operands
 - The optimizer works on straight-line code only; no control-flow-aware passes.
 
 ---
+## StreamLit Link : https://smartlint-mini-compiler-and-static-code-analyzer-vyaikcjlssxuv.streamlit.app/
 
 ## License
 
